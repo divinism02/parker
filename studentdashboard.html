@@ -1,0 +1,1393 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard - CSU PARKER</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f5;
+            color: #1f2937;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #064e3b;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+        }
+
+        .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            color: #064e3b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 20px;
+        }
+
+        .sidebar-logo span {
+            display: block;
+            font-size: 11px;
+            color: #a7f3d0;
+            margin-top: 3px;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            color: #a7f3d0;
+            margin: 20px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            margin-bottom: 6px;
+            color: #d1fae5;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #047857;
+            color: white;
+        }
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 75px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 35px;
+        }
+
+        .topbar h1 {
+            font-size: 24px;
+            color: #064e3b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #d1fae5;
+            color: #065f46;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-weight: bold;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .profile-info small {
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 30px 35px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 27px;
+            color: #064e3b;
+            margin-bottom: 5px;
+        }
+
+        .welcome p {
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           QUICK ACCESS
+        ========================= */
+
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+
+            margin-bottom: 30px;
+        }
+
+        .quick-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+
+            padding: 23px;
+
+            text-decoration: none;
+            color: #1f2937;
+
+            transition: 0.2s;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #059669;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.07);
+        }
+
+        .quick-icon {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 10px;
+
+            background: #d1fae5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+
+            margin-bottom: 15px;
+        }
+
+        .quick-card h3 {
+            color: #064e3b;
+            margin-bottom: 6px;
+        }
+
+        .quick-card p {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           TWO COLUMN
+        ========================= */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns: 1.4fr 1fr;
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            color: #064e3b;
+        }
+
+        .view-link {
+            color: #047857;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           PARKING MAP
+        ========================= */
+
+        .map-container {
+            padding: 20px;
+        }
+
+        .map-box {
+            height: 230px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    rgba(6,78,59,0.10),
+                    rgba(6,78,59,0.10)
+                ),
+                url("csu-background.png");
+
+            background-size: cover;
+            background-position: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .map-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            background: rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .map-button {
+            background: #064e3b;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px 22px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .map-button:hover {
+            background: #047857;
+        }
+
+
+        /* =========================
+           VEHICLE
+        ========================= */
+
+        .vehicle-content {
+            padding: 20px;
+        }
+
+        .vehicle-box {
+            background: #f0fdf4;
+
+            border: 1px solid #bbf7d0;
+
+            border-radius: 10px;
+
+            padding: 18px;
+        }
+
+        .vehicle-top {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+        .vehicle-icon {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 10px;
+
+            background: #d1fae5;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+        .vehicle-top h3 {
+            color: #064e3b;
+        }
+
+        .vehicle-top p {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .vehicle-details {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+        }
+
+        .detail p:first-child {
+            font-size: 11px;
+
+            color: #6b7280;
+
+            margin-bottom: 3px;
+        }
+
+        .detail p:last-child {
+            font-weight: bold;
+
+            color: #374151;
+        }
+
+
+        /* =========================
+           VIOLATIONS
+        ========================= */
+
+        .violation-list {
+            padding: 5px 20px 20px;
+        }
+
+        .violation-item {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .violation-item:last-child {
+            border-bottom: none;
+        }
+
+        .violation-info {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .warning-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 8px;
+
+            background: #fef3c7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .violation-info strong {
+            display: block;
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+        .violation-info small {
+            color: #6b7280;
+
+            font-size: 11px;
+        }
+
+        .status {
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fef3c7;
+
+            color: #92400e;
+        }
+
+        .resolved {
+            background: #d1fae5;
+
+            color: #065f46;
+        }
+
+
+        /* =========================
+           PARKING AREAS
+        ========================= */
+
+        .areas {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .area-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+        .area-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+        }
+
+        .area-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 9px;
+
+            background: #d1fae5;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        .area-card h3 {
+            color: #064e3b;
+
+            font-size: 16px;
+        }
+
+        .area-card p {
+            color: #6b7280;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            margin-bottom: 15px;
+        }
+
+        .available {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .available span:first-child {
+            font-size: 12px;
+
+            color: #6b7280;
+        }
+
+        .available span:last-child {
+            font-weight: bold;
+
+            color: #047857;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            .quick-access {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .areas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                width: 70px;
+
+                padding: 20px 10px;
+            }
+
+            .sidebar-logo {
+                justify-content: center;
+            }
+
+            .sidebar-logo h2,
+            .sidebar-logo span,
+            .menu-title,
+            .nav-link span {
+                display: none;
+            }
+
+            .nav-link {
+                justify-content: center;
+            }
+
+            .logout {
+                left: 10px;
+                right: 10px;
+            }
+
+            .main {
+                margin-left: 70px;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .content {
+                padding: 22px 18px;
+            }
+
+            .welcome h2 {
+                font-size: 23px;
+            }
+
+            .quick-access {
+                grid-template-columns: 1fr;
+            }
+
+            .areas {
+                grid-template-columns: 1fr;
+            }
+
+            .vehicle-details {
+                grid-template-columns: 1fr;
+            }
+
+            .violation-item {
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- =================================
+         SIDEBAR
+    ================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+              <img src="csu-logo.jpg" alt="CSU Logo">
+           
+
+           
+
+            <div>
+                <h2>CSU PARKER</h2>
+
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            Main Menu
+        </div>
+
+
+        <a href="studentdashboard.html"
+           class="nav-link active">
+
+            <div class="nav-icon">
+                ▦
+            </div>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="parking-map.html"
+           class="nav-link">
+
+            <div class="nav-icon">
+                🗺
+            </div>
+
+            <span>
+                Parking Map
+            </span>
+
+        </a>
+
+
+        <a href="parking-areas.html"
+           class="nav-link">
+
+            <div class="nav-icon">
+                📍
+            </div>
+
+            <span>
+                Parking Areas
+            </span>
+
+        </a>
+
+
+        <a href="my-vehicle.html"
+           class="nav-link">
+
+            <div class="nav-icon">
+                🚗
+            </div>
+
+            <span>
+                My Vehicle
+            </span>
+
+        </a>
+
+
+        <a href="my-violations.html"
+           class="nav-link">
+
+            <div class="nav-icon">
+                ⚠
+            </div>
+
+            <span>
+                My Violations
+            </span>
+
+        </a>
+
+
+        <div class="menu-title">
+            Account
+        </div>
+
+
+        <a href="parker.html"
+           class="nav-link logout">
+
+            <div class="nav-icon">
+                ↪
+            </div>
+
+            <span>
+                Log Out
+            </span>
+
+        </a>
+
+    </aside>
+
+
+
+    <!-- =================================
+         MAIN
+    ================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <h1>
+                Student Dashboard
+            </h1>
+
+
+            <div class="profile">
+
+                <div class="profile-icon">
+                    DR
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Student
+                    </strong>
+
+                    <small>
+                        Caraga State University
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- CONTENT -->
+
+        <section class="content">
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome">
+
+                <h2>
+                    Welcome to CSU PARKER!
+                </h2>
+
+                <p>
+                    Find parking areas, check your vehicle,
+                    and monitor your parking violations.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 QUICK ACCESS
+            ================================== -->
+
+            <div class="quick-access">
+
+
+                <a href="parking-map.html"
+                   class="quick-card">
+
+                    <div class="quick-icon">
+                        🗺️
+                    </div>
+
+                    <h3>
+                        Parking Map
+                    </h3>
+
+                    <p>
+                        Find designated parking areas
+                        around the CSU campus.
+                    </p>
+
+                </a>
+
+
+                <a href="parking-areas.html"
+                   class="quick-card">
+
+                    <div class="quick-icon">
+                        📍
+                    </div>
+
+                    <h3>
+                        Parking Areas
+                    </h3>
+
+                    <p>
+                        View available parking locations
+                        and their designated users.
+                    </p>
+
+                </a>
+
+
+                <a href="my-violations.html"
+                   class="quick-card">
+
+                    <div class="quick-icon">
+                        ⚠️
+                    </div>
+
+                    <h3>
+                        My Violations
+                    </h3>
+
+                    <p>
+                        Check your recorded parking
+                        violations and their status.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================
+                 MAP + VEHICLE
+            ================================== -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- PARKING MAP -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Campus Parking
+                        </h2>
+
+                        <a href="parking-map.html"
+                           class="view-link">
+
+                            View Map
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="map-container">
+
+                        <div class="map-box">
+
+                            <div class="map-overlay">
+
+                                <a href="parking-map.html"
+                                   class="map-button">
+
+                                    Open Parking Map
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MY VEHICLE -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            My Vehicle
+                        </h2>
+
+                        <a href="my-vehicle.html"
+                           class="view-link">
+
+                            Manage
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="vehicle-content">
+
+                        <div class="vehicle-box">
+
+
+                            <div class="vehicle-top">
+
+                                <div class="vehicle-icon">
+                                    🚗
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Toyota Vios
+                                    </h3>
+
+                                    <p>
+                                        Registered Vehicle
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="vehicle-details">
+
+
+                                <div class="detail">
+
+                                    <p>
+                                        Plate Number
+                                    </p>
+
+                                    <p>
+                                        ABC 1234
+                                    </p>
+
+                                </div>
+
+
+                                <div class="detail">
+
+                                    <p>
+                                        Vehicle Type
+                                    </p>
+
+                                    <p>
+                                        Sedan
+                                    </p>
+
+                                </div>
+
+
+                                <div class="detail">
+
+                                    <p>
+                                        Color
+                                    </p>
+
+                                    <p>
+                                        White
+                                    </p>
+
+                                </div>
+
+
+                                <div class="detail">
+
+                                    <p>
+                                        Status
+                                    </p>
+
+                                    <p style="color:#047857;">
+                                        Registered
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 MY VIOLATIONS
+            ================================== -->
+
+            <div class="card" style="margin-bottom:30px;">
+
+                <div class="card-header">
+
+                    <h2>
+                        Recent Parking Violations
+                    </h2>
+
+                    <a href="my-violations.html"
+                       class="view-link">
+
+                        View All
+
+                    </a>
+
+                </div>
+
+
+                <div class="violation-list">
+
+
+                    <div class="violation-item">
+
+                        <div class="violation-info">
+
+                            <div class="warning-icon">
+                                ⚠️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Illegal Parking
+                                </strong>
+
+                                <small>
+                                    Student Parking Area • Sept. 12, 2026
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="status pending">
+                            Pending
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="violation-item">
+
+                        <div class="violation-info">
+
+                            <div class="warning-icon">
+                                ⚠️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Parking in No Parking Zone
+                                </strong>
+
+                                <small>
+                                    Admin Building • Sept. 5, 2026
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="status resolved">
+                            Resolved
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="violation-item">
+
+                        <div class="violation-info">
+
+                            <div class="warning-icon">
+                                ⚠️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Unauthorized Parking
+                                </strong>
+
+                                <small>
+                                    Faculty Parking • Aug. 28, 2026
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="status resolved">
+                            Resolved
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 PARKING AREAS
+            ================================== -->
+
+            <h2 class="section-title"
+                style="color:#064e3b;
+                       font-size:19px;
+                       margin-bottom:15px;">
+
+                Popular Parking Areas
+
+            </h2>
+
+
+            <div class="areas">
+
+
+                <div class="area-card">
+
+                    <div class="area-header">
+
+                        <div class="area-icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Student Parking
+                        </h3>
+
+                    </div>
+
+                    <p>
+                        Designated parking area for
+                        CSU students.
+                    </p>
+
+                    <div class="available">
+
+                        <span>
+                            Available Spaces
+                        </span>
+
+                        <span>
+                            24 spaces
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="area-card">
+
+                    <div class="area-header">
+
+                        <div class="area-icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Main Campus
+                        </h3>
+
+                    </div>
+
+                    <p>
+                        Parking area near the main
+                        campus facilities.
+                    </p>
+
+                    <div class="available">
+
+                        <span>
+                            Available Spaces
+                        </span>
+
+                        <span>
+                            12 spaces
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="area-card">
+
+                    <div class="area-header">
+
+                        <div class="area-icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Library Parking
+                        </h3>
+
+                    </div>
+
+                    <p>
+                        Convenient parking area
+                        near the university library.
+                    </p>
+
+                    <div class="available">
+
+                        <span>
+                            Available Spaces
+                        </span>
+
+                        <span>
+                            8 spaces
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+</body>
+</html>
+```

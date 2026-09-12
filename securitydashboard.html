@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Security Dashboard - CSU PARKER</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f5;
+            color: #1f2937;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #064e3b;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 20px;
+        }
+
+        .sidebar-logo span {
+            display: block;
+            font-size: 11px;
+            color: #a7f3d0;
+            margin-top: 3px;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            color: #a7f3d0;
+            margin: 20px 10px 10px;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            margin-bottom: 6px;
+            color: #d1fae5;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #047857;
+            color: white;
+        }
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            height: 75px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+        }
+
+        .topbar h1 {
+            font-size: 24px;
+            color: #064e3b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #d1fae5;
+            color: #065f46;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .profile-info small {
+            color: #6b7280;
+        }
+
+        /* CONTENT */
+
+        .content {
+            padding: 30px 35px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 27px;
+            color: #064e3b;
+            margin-bottom: 5px;
+        }
+
+        .welcome p {
+            color: #6b7280;
+        }
+
+        /* STAT CARDS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-info p {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .stat-info h3 {
+            font-size: 28px;
+            color: #111827;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: #d1fae5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+        }
+
+        /* QUICK ACTIONS */
+
+        .section-title {
+            font-size: 19px;
+            color: #064e3b;
+            margin-bottom: 15px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 22px;
+            text-decoration: none;
+            color: #1f2937;
+            transition: 0.2s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            border-color: #059669;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+        }
+
+        .action-card .icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .action-card h3 {
+            color: #064e3b;
+            margin-bottom: 6px;
+        }
+
+        .action-card p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* RECENT VIOLATIONS */
+
+        .recent {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .recent-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .recent-header h2 {
+            color: #064e3b;
+            font-size: 18px;
+        }
+
+        .view-all {
+            color: #047857;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f9fafb;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        td {
+            color: #374151;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .resolved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .review {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1000px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 20px 10px;
+            }
+
+            .sidebar-logo h2,
+            .sidebar-logo span,
+            .menu-title,
+            .nav-link span {
+                display: none;
+            }
+
+            .sidebar-logo {
+                justify-content: center;
+            }
+
+            .nav-link {
+                justify-content: center;
+            }
+
+            .logout {
+                left: 10px;
+                right: 10px;
+            }
+
+            .main {
+                margin-left: 70px;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .content {
+                padding: 22px 18px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <!-- Change csu-logo.png to your actual logo filename -->
+            <img src="csu-logo.jpg" alt="CSU Logo">
+
+            <div>
+                <h2>CSU PARKER</h2>
+                <span>Security Portal</span>
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            Main Menu
+        </div>
+
+        <a href="security-dashboard.html" class="nav-link active">
+            <div class="nav-icon">▦</div>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="record-violation.html" class="nav-link">
+            <div class="nav-icon">＋</div>
+            <span>Record Violation</span>
+        </a>
+
+        <a href="violations.html" class="nav-link">
+            <div class="nav-icon">⚠</div>
+            <span>Violations</span>
+        </a>
+
+        <a href="parking-areas.html" class="nav-link">
+            <div class="nav-icon">⌖</div>
+            <span>Parking Areas</span>
+        </a>
+
+
+        <div class="menu-title">
+            Reports
+        </div>
+
+        <a href="security-reports.html" class="nav-link">
+            <div class="nav-icon">▤</div>
+            <span>Reports</span>
+        </a>
+
+
+        <div class="logout">
+
+            <a href="parker.html" class="nav-link">
+                <div class="nav-icon">↪</div>
+                <span>Log Out</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <h1>Security Dashboard</h1>
+
+            <div class="profile">
+
+                <div class="profile-icon">
+                    SP
+                </div>
+
+                <div class="profile-info">
+                    <strong>Security Personnel</strong>
+                    <small>CSU Security Office</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+
+        <section class="content">
+
+            <div class="welcome">
+
+                <h2>Welcome, Security Personnel!</h2>
+
+                <p>
+                    Manage parking violations and help maintain
+                    safe and organized parking at Caraga State University.
+                </p>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-info">
+                        <p>Total Violations</p>
+                        <h3>128</h3>
+                    </div>
+
+                    <div class="stat-icon">
+                        ⚠
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-info">
+                        <p>Today's Violations</p>
+                        <h3>12</h3>
+                    </div>
+
+                    <div class="stat-icon">
+                        📋
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-info">
+                        <p>Pending Cases</p>
+                        <h3>8</h3>
+                    </div>
+
+                    <div class="stat-icon">
+                        ⏱
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-info">
+                        <p>Parking Areas</p>
+                        <h3>15</h3>
+                    </div>
+
+                    <div class="stat-icon">
+                        📍
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <h2 class="section-title">
+                Quick Actions
+            </h2>
+
+
+            <div class="quick-actions">
+
+                <a href="record-violation.html" class="action-card">
+
+                    <div class="icon">
+                        📝
+                    </div>
+
+                    <h3>Record Violation</h3>
+
+                    <p>
+                        Record a new parking violation
+                        reported on campus.
+                    </p>
+
+                </a>
+
+
+                <a href="violations.html" class="action-card">
+
+                    <div class="icon">
+                        ⚠️
+                    </div>
+
+                    <h3>View Violations</h3>
+
+                    <p>
+                        View and manage recorded
+                        parking violations.
+                    </p>
+
+                </a>
+
+
+                <a href="parking-areas.html" class="action-card">
+
+                    <div class="icon">
+                        📍
+                    </div>
+
+                    <h3>Parking Areas</h3>
+
+                    <p>
+                        View campus parking locations
+                        and available spaces.
+                    </p>
+
+                </a>
+
+
+                <a href="security-reports.html" class="action-card">
+
+                    <div class="icon">
+                        📊
+                    </div>
+
+                    <h3>View Reports</h3>
+
+                    <p>
+                        Generate and review parking
+                        violation reports.
+                    </p>
+
+                </a>
+
+
+                <a href="parking-map.html" class="action-card">
+
+                    <div class="icon">
+                        🗺️
+                    </div>
+
+                    <h3>Parking Map</h3>
+
+                    <p>
+                        View the campus map and
+                        designated parking areas.
+                    </p>
+
+                </a>
+
+
+                <a href="index.html" class="action-card">
+
+                    <div class="icon">
+                        🚪
+                    </div>
+
+                    <h3>Exit Portal</h3>
+
+                    <p>
+                        Return to the CSU PARKER
+                        home page.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <!-- RECENT VIOLATIONS -->
+
+            <div class="recent">
+
+                <div class="recent-header">
+
+                    <h2>Recent Parking Violations</h2>
+
+                    <a href="violations.html" class="view-all">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Plate Number</th>
+                                <th>Violation</th>
+                                <th>Location</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>ABC 1234</td>
+
+                                <td>Illegal Parking</td>
+
+                                <td>Student Parking Area</td>
+
+                                <td>Sept. 13, 2026</td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>XYZ 5678</td>
+
+                                <td>No Parking Zone</td>
+
+                                <td>Admin Building</td>
+
+                                <td>Sept. 13, 2026</td>
+
+                                <td>
+                                    <span class="status review">
+                                        Under Review
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>NBC 2468</td>
+
+                                <td>Unauthorized Parking</td>
+
+                                <td>Faculty Parking</td>
+
+                                <td>Sept. 12, 2026</td>
+
+                                <td>
+                                    <span class="status resolved">
+                                        Resolved
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>DEF 1357</td>
+
+                                <td>Blocking Entrance</td>
+
+                                <td>Main Gate</td>
+
+                                <td>Sept. 12, 2026</td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+</body>
+</html>

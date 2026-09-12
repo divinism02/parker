@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSU PARKER | Log In</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .page {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 45, 25, 0.75),
+                    rgba(0, 25, 15, 0.85)
+                ),
+                url("csu-background.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            padding: 30px;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            opacity: 0.85;
+
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            opacity: 1;
+            transform: translateX(-3px);
+        }
+
+
+        /* =========================
+           LOGIN CARD
+        ========================= */
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+
+            padding: 40px;
+
+            border-radius: 22px;
+
+            background: rgba(255,255,255,0.14);
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.35);
+
+            color: white;
+        }
+
+
+        /* =========================
+           BRAND
+        ========================= */
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+         width: 90px;
+         height: 90px;
+         margin: 0 auto 15px;
+
+         background: white;
+         border-radius: 50%;
+
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+         overflow: hidden;
+}
+
+         .logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 8px;
+}
+
+        .brand h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .brand p {
+            font-size: 13px;
+
+            color: rgba(255,255,255,0.7);
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 9px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            outline: none;
+
+            background: rgba(255,255,255,0.10);
+
+            color: white;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        input:focus {
+            border-color: #8ee6a8;
+
+            background: rgba(255,255,255,0.15);
+
+            box-shadow: 0 0 0 3px rgba(142,230,168,0.12);
+        }
+
+
+        /* =========================
+           PASSWORD
+        ========================= */
+
+        .password-container {
+            position: relative;
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 13px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: none;
+
+            color: rgba(255,255,255,0.7);
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           OPTIONS
+        ========================= */
+
+        .options {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin: 5px 0 25px;
+
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            color: rgba(255,255,255,0.75);
+        }
+
+        .remember input {
+            width: auto;
+        }
+
+        .forgot {
+            color: #9ce9b2;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-btn {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: white;
+            color: #176b36;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .login-btn:hover {
+            background: #e9f5ec;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.25);
+        }
+
+
+        /* =========================
+           DIVIDER
+        ========================= */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 25px 0;
+
+            color: rgba(255,255,255,0.45);
+
+            font-size: 11px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: rgba(255,255,255,0.2);
+        }
+
+
+        /* =========================
+           SIGN UP
+        ========================= */
+
+        .signup-text {
+            text-align: center;
+
+            font-size: 13px;
+
+            color: rgba(255,255,255,0.7);
+        }
+
+        .signup-text a {
+            color: #9ce9b2;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            position: absolute;
+
+            bottom: 15px;
+
+            width: 100%;
+
+            text-align: center;
+
+            color: rgba(255,255,255,0.55);
+
+            font-size: 10px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 20px;
+
+                background-position: 60% center;
+            }
+
+            .back {
+                top: 20px;
+                left: 20px;
+            }
+
+            .login-card {
+                padding: 30px 23px;
+
+                border-radius: 18px;
+            }
+
+            .logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+
+            background: white;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+}
+
+         .logo img {
+             width: 100%;
+             height: 100%;
+             object-fit: contain;
+             padding: 8px;
+}
+
+            .brand h1 {
+                font-size: 24px;
+            }
+
+            .brand p {
+                font-size: 12px;
+            }
+
+            input {
+                padding: 13px;
+            }
+
+            .login-btn {
+                padding: 14px;
+            }
+
+            .footer {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- BACK BUTTON -->
+
+    <a href="parker.html" class="back">
+        ← Back
+    </a>
+
+
+    <!-- LOGIN CARD -->
+
+    <div class="login-card">
+
+        <div class="brand">
+
+            <div class="logo">
+               <img src="csu-logo.jpg" alt="Caraga State University Logo">
+            </div>
+
+            <h1>Welcome Back</h1>
+
+            <p>
+                Sign in to your CSU PARKER account
+            </p>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form onsubmit="login(event)">
+
+            <div class="form-group">
+
+                <label for="email">
+                     CarSu Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="security1@carsu.edu.ph"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-container">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword()"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="options">
+
+                <label class="remember">
+
+                    <input type="checkbox">
+
+                    Remember me
+
+                </label>
+
+
+                <a href="#" class="forgot">
+                    Forgot password?
+                </a>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Log In
+            </button>
+
+        </form>
+
+
+        <div class="divider">
+            OR
+        </div>
+
+
+        <div class="signup-text">
+
+            Don't have an account?
+
+            <a href="signup.html">
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        © 2026 Caraga State University · CSU PARKER
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* SHOW / HIDE PASSWORD */
+
+    function togglePassword() {
+
+        const password = document.getElementById("password");
+        const button = document.querySelector(".show-password");
+
+        if (password.type === "password") {
+
+            password.type = "text";
+            button.textContent = "Hide";
+
+        } else {
+
+            password.type = "password";
+            button.textContent = "Show";
+
+        }
+
+    }
+
+
+    /* LOGIN */
+
+    function login(event) {
+
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+            alert("Please enter your email and password.");
+            return;
+        }
+
+
+        /*
+            GET ACCOUNT CREATED FROM SIGN UP
+
+            The signup page should save the account as:
+            csuParkerAccount
+        */
+
+        const savedAccount = localStorage.getItem("csuParkerAccount");
+
+
+        if (savedAccount) {
+
+            const account = JSON.parse(savedAccount);
+
+
+            /*
+                CHECK EMAIL
+            */
+
+            if (email !== account.email.toLowerCase()) {
+
+                alert("Account not found. Please check your email.");
+                return;
+
+            }
+
+
+            /*
+                CHECK ACCOUNT ROLE
+
+                STUDENT
+                → student-dashboard.html
+
+                SECURITY
+                → security-dashboard.html
+            */
+
+            if (account.role === "student") {
+
+                window.location.href = "studentdashboard.html";
+
+            }
+
+            else if (account.role === "security") {
+
+                window.location.href = "securitydashboard.html";
+
+            }
+
+            else {
+
+                alert("Invalid account type.");
+            }
+
+        }
+
+        else {
+
+            /*
+                DEMO LOGIN
+
+                If there is no account saved yet,
+                you can use these demo emails.
+            */
+
+            if (email.includes("security")) {
+
+                window.location.href = "securitydashboard.html";
+
+            }
+
+            else {
+
+                window.location.href = "studentdashboard.html";
+
+            }
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>

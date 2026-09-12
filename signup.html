@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSU PARKER | Sign Up</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .page {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 45, 25, 0.78),
+                    rgba(0, 25, 15, 0.88)
+                ),
+                url("csu-background.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            padding: 30px;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back {
+            position: absolute;
+
+            top: 30px;
+            left: 40px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            opacity: 0.85;
+
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            opacity: 1;
+            transform: translateX(-3px);
+        }
+
+
+        /* =========================
+           SIGN UP CARD
+        ========================= */
+
+        .signup-card {
+            width: 100%;
+            max-width: 470px;
+
+            padding: 35px 40px;
+
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.14);
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35);
+
+            color: white;
+        }
+
+
+        /* =========================
+           BRAND
+        ========================= */
+
+        .brand {
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+
+            background: white;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+}
+
+         .logo img {
+             width: 100%;
+             height: 100%;
+             object-fit: contain;
+             padding: 8px;
+}
+
+        .brand h1 {
+            font-size: 27px;
+
+            margin-bottom: 5px;
+        }
+
+        .brand p {
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        label {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border-radius: 9px;
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            outline: none;
+
+            background: rgba(255, 255, 255, 0.10);
+
+            color: white;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #8ee6a8;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            box-shadow:
+                0 0 0 3px rgba(142, 230, 168, 0.12);
+        }
+
+        select option {
+            color: #222;
+            background: white;
+        }
+
+
+        /* =========================
+           PASSWORD
+        ========================= */
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            padding-right: 55px;
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: none;
+
+            color: rgba(255, 255, 255, 0.7);
+
+            cursor: pointer;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           ACCOUNT TYPE
+        ========================= */
+
+        #role {
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           TERMS
+        ========================= */
+
+        .terms {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            margin: 5px 0 20px;
+
+            color: rgba(255, 255, 255, 0.7);
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        .terms input {
+            width: auto;
+
+            margin-top: 3px;
+        }
+
+        .terms a {
+            color: #9ce9b2;
+
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           SIGN UP BUTTON
+        ========================= */
+
+        .signup-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #176b36;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .signup-btn:hover {
+            background: #e9f5ec;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* =========================
+           DIVIDER
+        ========================= */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 20px 0;
+
+            color: rgba(255, 255, 255, 0.45);
+
+            font-size: 11px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .login-text {
+            text-align: center;
+
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-text a {
+            color: #9ce9b2;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            position: absolute;
+
+            bottom: 15px;
+
+            width: 100%;
+
+            text-align: center;
+
+            color: rgba(255, 255, 255, 0.55);
+
+            font-size: 10px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 20px;
+
+                background-position: 60% center;
+            }
+
+            .back {
+                top: 20px;
+                left: 20px;
+            }
+
+            .signup-card {
+                padding: 28px 22px;
+
+                border-radius: 18px;
+            }
+
+            .logo {
+                width: 52px;
+                height: 52px;
+
+                font-size: 14px;
+            }
+
+            .brand h1 {
+                font-size: 23px;
+            }
+
+            .brand p {
+                font-size: 12px;
+            }
+
+            .form-row {
+                flex-direction: column;
+
+                gap: 0;
+            }
+
+            input,
+            select {
+                padding: 12px;
+            }
+
+            .signup-btn {
+                padding: 14px;
+            }
+
+            .footer {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =========================
+         BACK BUTTON
+    ========================= -->
+
+    <a href="parker.html" class="back">
+        ← Back
+    </a>
+
+
+
+    <!-- =========================
+         SIGN UP CARD
+    ========================= -->
+
+    <div class="signup-card">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="logo">
+                 <img src="csu-logo.jpg" alt="Caraga State University Logo">
+            </div>
+
+            <h1>Create Your Account</h1>
+
+            <p>
+                Join CSU PARKER Student Portal
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             SIGN UP FORM
+        ========================= -->
+
+        <form onsubmit="signup(event)">
+
+
+            <!-- FIRST + LAST NAME -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="firstName">
+                        First Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        placeholder="First name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lastName">
+                        Last Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        placeholder="Last name"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STUDENT ID -->
+
+            <div class="form-group">
+
+                <label for="studentId">
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter your student ID"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Student / CSU Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="student@carsu.edu.ph"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- =========================
+                 ACCOUNT TYPE
+            ========================= -->
+
+            <div class="form-group">
+
+                <label for="role">
+                    Account Type
+                </label>
+
+                <select id="role" required>
+
+                    <option value="">
+                        Select account type
+                    </option>
+
+                    <option value="student">
+                        Student
+                    </option>
+
+                    <option value="security">
+                        Security Personnel
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-container">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create a password"
+                        minlength="8"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword('password', this)"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <div class="password-container">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        minlength="8"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword('confirmPassword', this)"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TERMS -->
+
+            <label class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                >
+
+                <span>
+
+                    I agree to the
+
+                    <a href="#">
+                        Terms and Conditions
+                    </a>
+
+                    of CSU PARKER.
+
+                </span>
+
+            </label>
+
+
+
+            <!-- CREATE ACCOUNT -->
+
+            <button
+                type="submit"
+                class="signup-btn"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+            OR
+        </div>
+
+
+
+        <!-- LOGIN -->
+
+        <div class="login-text">
+
+            Already have an account?
+
+            <a href="loggin.html">
+                Log In
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        © 2026 Caraga State University · CSU PARKER
+
+    </div>
+
+</div>
+    </form>
+
+    <!-- Your other signup page content -->
+
+    <script>
+
+    function signup(event) {
+
+        event.preventDefault();
+
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const studentId = document.getElementById("studentId").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const role = document.getElementById("role").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        if (!role) {
+            alert("Please select an account type.");
+            return;
+        }
+
+        let demoEmail = "";
+        let demoPassword = "";
+
+        if (role === "student") {
+            demoEmail = "student@carsu.edu.ph";
+            demoPassword = "student123";
+        }
+
+        else if (role === "security") {
+            demoEmail = "security@carsu.edu.ph";
+            demoPassword = "security123";
+        }
+
+        const account = {
+            firstName: firstName,
+            lastName: lastName,
+            studentId: studentId,
+            email: demoEmail,
+            role: role,
+            program: role === "student" ? program : "",
+            password: demoPassword
+        };
+
+        localStorage.setItem(
+            "csuParkerAccount",
+            JSON.stringify(account)
+        );
+
+        if (role === "student") {
+
+            alert(
+                "Student account created!\n\n" +
+                "Demo Email: student@carsu.edu.ph\n" +
+                "Demo Password: student123"
+            );
+
+            window.location.href = "studentdashboard.html";
+
+        }
+
+        else if (role === "security") {
+
+            alert(
+                "Security account created!\n\n" +
+                "Demo Email: security@carsu.edu.ph\n" +
+                "Demo Password: security123"
+            );
+
+            window.location.href = "securitydashboard.html";
+
+        }
+
+    }
+
+    </script>
+
+
+</body>
+</html>
