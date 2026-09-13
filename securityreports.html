@@ -1,0 +1,971 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Security Reports | CSU PARKER</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f4f7f5;
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #064e3b;
+            color: white;
+            padding: 25px 18px;
+        }
+
+
+        .brand {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            margin: auto;
+            background: white;
+            border-radius: 50%;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 6px;
+        }
+
+
+        .brand h2 {
+            margin-top: 12px;
+            font-size: 20px;
+        }
+
+
+        .brand p {
+            font-size: 11px;
+            color: #a7f3d0;
+            margin-top: 4px;
+        }
+
+
+        .menu {
+            list-style: none;
+        }
+
+
+        .menu li {
+            margin-bottom: 8px;
+        }
+
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: #d1fae5;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+
+        .menu a:hover,
+        .menu .active {
+            background: #047857;
+            color: white;
+        }
+
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+
+        .logout a {
+            display: block;
+            padding: 12px;
+            text-align: center;
+
+            border: 1px solid #6ee7b7;
+            border-radius: 8px;
+
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+
+        .topbar h1 {
+            color: #064e3b;
+            font-size: 27px;
+        }
+
+
+        .security-label {
+            background: #d1fae5;
+            color: #065f46;
+
+            padding: 9px 14px;
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           SUMMARY CARDS
+        ========================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .summary-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.04);
+        }
+
+
+        .summary-card small {
+            display: block;
+
+            color: #6b7280;
+            font-size: 12px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .summary-card strong {
+            color: #064e3b;
+            font-size: 28px;
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+
+            padding: 25px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.04);
+        }
+
+
+        .card h2 {
+            color: #064e3b;
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+
+        .card-description {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           FILTERS
+        ========================= */
+
+        .filters {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 15px;
+        }
+
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+
+        label {
+            display: block;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            color: #374151;
+
+            margin-bottom: 8px;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+
+        input:focus,
+        select:focus {
+            border-color: #059669;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(5,150,105,0.1);
+        }
+
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+
+        button {
+            padding: 12px 20px;
+
+            border: none;
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+
+        .generate-btn {
+            background: #064e3b;
+            color: white;
+        }
+
+
+        .generate-btn:hover {
+            background: #047857;
+        }
+
+
+        .print-btn {
+            background: #ecfdf5;
+            color: #065f46;
+
+            border: 1px solid #a7f3d0;
+        }
+
+
+        .print-btn:hover {
+            background: #d1fae5;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            min-width: 750px;
+        }
+
+
+        th {
+            background: #ecfdf5;
+
+            color: #064e3b;
+
+            padding: 14px;
+
+            text-align: left;
+
+            font-size: 13px;
+        }
+
+
+        td {
+            padding: 14px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            font-size: 13px;
+
+            color: #374151;
+        }
+
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+
+        .sticker {
+            color: #064e3b;
+            font-weight: bold;
+        }
+
+
+        .violation {
+            color: #b91c1c;
+            font-weight: 600;
+        }
+
+
+        .empty {
+            text-align: center;
+
+            padding: 35px;
+
+            color: #9ca3af;
+        }
+
+
+        /* =========================
+           REPORT HEADER
+        ========================= */
+
+        .report-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .report-date {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .filters {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+
+                position: relative;
+
+                padding: 15px;
+            }
+
+
+            .brand {
+                margin-bottom: 15px;
+            }
+
+
+            .brand .logo {
+                width: 50px;
+                height: 50px;
+            }
+
+
+            .menu {
+                display: flex;
+
+                flex-wrap: wrap;
+
+                gap: 5px;
+
+                justify-content: center;
+            }
+
+
+            .menu li {
+                margin: 0;
+            }
+
+
+            .menu a {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+
+            .logout {
+                position: static;
+
+                margin-top: 10px;
+            }
+
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+
+            .topbar {
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+
+            .topbar h1 {
+                font-size: 22px;
+            }
+
+
+            .security-label {
+                white-space: nowrap;
+            }
+
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+
+            .button-row {
+                flex-direction: column;
+            }
+
+
+            button {
+                width: 100%;
+            }
+
+        }
+
+
+        /* =========================
+           PRINT
+        ========================= */
+
+        @media print {
+
+            .sidebar,
+            .filter-card,
+            .security-label {
+                display: none;
+            }
+
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+
+            body {
+                background: white;
+            }
+
+
+            .card {
+                box-shadow: none;
+                border: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="logo">
+
+                <img
+                    src="csu-logo.jpg"
+                    alt="Caraga State University Logo"
+                >
+
+            </div>
+
+
+            <h2>CSU PARKER</h2>
+
+            <p>Security Portal</p>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="securitydashboard.html">
+                    Dashboard
+                </a>
+            </li>
+
+
+            <li>
+                <a href="recordviolation.html">
+                    Record Violation
+                </a>
+            </li>
+
+
+            <li>
+                <a href="violation.html">
+                    Violations
+                </a>
+            </li>
+
+
+            <li>
+                <a href="parking-areas.html">
+                    Parking Areas
+                </a>
+            </li>
+
+
+            <li>
+                <a href="securityreports.html"
+                   class="active">
+
+                    Reports
+
+                </a>
+            </li>
+
+        </ul>
+
+
+        <div class="logout">
+
+            <a href="parker.html">
+                Log Out
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>
+                    Security Reports
+                </h1>
+
+            </div>
+
+
+            <span class="security-label">
+                Security Personnel
+            </span>
+
+        </div>
+
+
+
+        <!-- =========================
+             SUMMARY
+        ========================= -->
+
+        <section class="summary-grid">
+
+
+            <div class="summary-card">
+
+                <small>
+                    Total Violations
+                </small>
+
+                <strong id="totalViolations">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <small>
+                    Illegal Parking
+                </small>
+
+                <strong id="illegalParking">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <small>
+                    Reserved Area
+                </small>
+
+                <strong id="reservedArea">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <small>
+                    Parking Locations
+                </small>
+
+                <strong id="locations">
+                    0
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             FILTER CARD
+        ========================= -->
+
+        <section class="card filter-card">
+
+            <h2>
+                Generate Report
+            </h2>
+
+
+            <p class="card-description">
+                Filter violation records to generate
+                a security report.
+            </p>
+
+
+            <div class="filters">
+
+
+                <div class="form-group">
+
+                    <label for="reportType">
+                        Violation Type
+                    </label>
+
+
+                    <select id="reportType">
+
+                        <option value="all">
+                            All Violations
+                        </option>
+
+                        <option value="Illegal Parking">
+                            Illegal Parking
+                        </option>
+
+                        <option value="Parking in No Parking Zone">
+                            Parking in No Parking Zone
+                        </option>
+
+                        <option value="Unauthorized Parking">
+                            Unauthorized Parking
+                        </option>
+
+                        <option value="Blocking Emergency Lane">
+                            Blocking Emergency Lane
+                        </option>
+
+                        <option value="Parking in Reserved Area">
+                            Parking in Reserved Area
+                        </option>
+
+                        <option value="Expired Parking">
+                            Expired Parking
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="startDate">
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="startDate"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="endDate">
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="endDate"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    class="generate-btn"
+                    onclick="generateReport()"
+                >
+                    Generate Report
+                </button>
+
+
+                <button
+                    class="print-btn"
+                    onclick="window.print()"
+                >
+                    Print Report
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             REPORT TABLE
+        ========================= -->
+
+        <section class="card">
+
+
+            <div class="report-header">
+
+                <div>
+
+                    <h2>
+                        Violation Report
+                    </h2>
+
+                    <p class="card-description">
+                        Recorded parking violations
+                        from CSU PARKER.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="report-date"
+                    id="reportDate"
+                >
+                </div>
+
+            </div>
+
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                #
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Car Sticker ID
+                            </th>
+
+                            <th>
+                                Violation
+                            </th>
+
+                            <th>
+                                Parking Location
+                            </th>
+
+                            <th>
+                                Notes
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="reportTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        /* =========================
+           GET VIOLATIONS
+        ==
+```
